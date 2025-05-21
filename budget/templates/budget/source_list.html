@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}サブカテゴリ{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sources</title>
+    <link href="{% static 'css/source_list.css' %}" rel="stylesheet">
+
+</head>
+<body>
+    <h1>収入カテゴリ一覧</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>収入カテゴリ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for source in sources %}
+            <tr>
+                <td>{{ source.name }}</td>
+                <td class="action-buttons">
+                    <form action="{% url 'edit_source' source.pk %}" method="get">
+                        <button type="submit" class="edit-button">✏️ 編集</button>
+                    </form>
+                    <form action="{% url 'delete_source' source.pk %}" method="post" onsubmit="return confirm('{{ source.name }} を削除してもよろしいですか？');">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">🗑️ 削除</button>
+                    </form>
+                </td>
+                
+            {% empty %}
+                <td>データがありません。</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="button-container">
+        <a href="{% url 'add_source' %}" class="undner">収入カテゴリを追加</a>
+        <a href="{% url 'income_list' %}" class="undner">収入一覧</a>    
+    </div>
+
+</body>
+</html>
+{% endblock %}

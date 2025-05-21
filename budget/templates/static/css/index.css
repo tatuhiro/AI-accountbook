@@ -1,0 +1,38 @@
+.graph-container {
+    width: 100%; /* 全体の幅 */
+    background-color: #f9f9f9; /* 背景色 */
+    border: 1px solid #ddd; /* 枠線 */
+    height: 20px; /* コンテナの高さ */
+    margin-bottom: 10px; /* 各グラフ間の余白 */
+    position: relative; /* 相対位置 */
+    border-radius: 10px; /* 角を丸くする */
+    overflow: hidden; /* はみ出した部分を隠す */
+}
+
+.graph-bar {
+    height: 100%; /* バーがコンテナ全体を埋める */
+    position: absolute; /* コンテナ内で絶対位置 */
+    left: 0; /* 左から開始 */
+    border-radius: 10px; /* 角を丸くする */
+    transition: width 0.3s ease; /* アニメーション効果 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* 影をつける */
+}
+
+.graph-label {
+    position: absolute;
+    right: 10px; /* コンテナの右端に配置 */
+    top: 50%; /* 縦中央揃え */
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #333; /* ラベルの文字色 */
+    font-weight: bold;
+}
+
+.totals {
+    display: flex; /* 横並び */
+    justify-content: center; /* 中央揃え */
+    align-items: center; /* 縦方向も中央揃え */
+    gap: 20px; /* 項目間の間隔 */
+    padding: 20px; /* 全体の余白 */
+    border-radius: 10px; /* 丸みを追加 */
+}

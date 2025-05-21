@@ -1,0 +1,95 @@
+/* CSS */
+body {
+    background-color: #ffffff; /* 背景を白に設定 */
+    font-weight: bold; /* 文字を太文字に設定 */
+    font-family: Arial, sans-serif; /* 読みやすいフォント */
+
+    display: flex;
+    flex-direction: column; /* 縦方向のレイアウト */
+    min-height: 100vh; /* 画面全体の高さを使用 */
+}
+
+h1 {
+    text-align: center; /* 中央揃え */
+    margin-top: 20px;
+    margin-bottom: 20px; /* タイトルの下に適切なスペース */
+}
+
+/* フォームのスタイル */
+form {
+    text-align: center; /* 中央揃え */
+    display: grid;
+    gap: 15px; /* 要素間のスペース */
+    margin: 0 auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 8px; /* フォームの角を丸める */
+    justify-content: center; /* 垂直方向で中央揃え */
+    align-items: center; /* 水平方向で中央揃え */
+}
+
+/* 入力フィールドのスタイル */
+form input {
+    width: 100%; /* 入力欄を親要素の幅に合わせる */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: normal; /* 入力欄の文字は太文字にしない */
+}
+
+form select {
+    width: 95%; /* 入力欄の幅を調整 */
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-weight: normal; /* 入力欄の文字は太文字にしない */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 影をつけて目立たせる */
+}
+
+form button, form a {
+    background-color: #007BFF; /* 青色ボタン */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none; /* リンクの下線を消す */
+    display: inline-block;
+    margin: 5px auto; /* ボタン間の間隔を調整 */
+}
+
+form button:hover, form a:hover {
+    background-color: #0056b3; /* ホバー時の色変更 */
+}
+/* ボタンコンテナのスタイル */
+.button-group {
+    display: flex; /* 横並びに配置 */
+    justify-content: center; /* 中央揃え */
+    gap: 10px; /* ボタン間のスペース */
+    margin-top: 20px; /* 上部に余白を追加 */
+}
+
+/* ボタンのスタイル */
+.button-group button, .button-group a {
+    background-color: #007BFF; /* 青色ボタン */
+    color: white; /* ボタンの文字色 */
+    padding: 10px 20px; /* ボタン内の余白 */
+    border: none; /* ボーダーを削除 */
+    border-radius: 4px; /* ボタンの角を丸める */
+    cursor: pointer; /* カーソルをポインタに */
+    font-size: 16px; /* フォントサイズ */
+    font-weight: bold; /* 太文字 */
+    text-align: center; /* テキストを中央揃え */
+    text-decoration: none; /* 下線を削除 */
+}
+
+.button-group button:hover, .button-group a:hover {
+    background-color: #0056b3; /* ホバー時の濃い青色 */
+}

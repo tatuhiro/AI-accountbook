@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}支出を追加{% endblock %}
+
+{% block content %}
+{% load static %}
+<link href="{% static 'css/expense_form.css' %}" rel="stylesheet">
+<div class="form-container">
+    <h1>支出を追加</h1>
+    <form action="{% url 'add_expense' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="date">日付:</label>
+            <input type="date" id="date" name="date" value="{{ form.instance.date }}">
+        </div>
+        <div>
+            <label for="main_category">メインカテゴリ:</label>
+            <select id="main_category" name="main_category">
+                {% for category in main_categories %}
+                <option value="{{ category.id }}" {% if form.instance.main_category and form.instance.main_category.id == category.id %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="sub_category">サブカテゴリ:</label>
+            <select id="sub_category" name="sub_category">
+                <option value="">-- サブカテゴリを選択 --</option>
+                {% if form.instance.main_category %}
+                {% for subcategory in form.instance.main_category.subcategories.all %}
+                <option value="{{ subcategory.id }}" {% if form.instance.sub_category and form.instance.sub_category.id == subcategory.id %}selected{% endif %}>
+                    {{ subcategory.name }}
+                </option>
+                {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+        <div>
+            <label for="amount">金額:</label>
+            <input type="number" id="amount" name="amount" value="{{ form.instance.amount }}">
+        </div>
+        <div>
+            <label for="payment_method">支払い方法:</label>
+            <select id="payment_method" name="payment_method">
+                {% for value, label in form.fields.payment_method.choices %}
+                <option value="{{ value }}" {% if form.instance.payment_method == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="rating">レーティング:</label>
+            <select id="rating" name="rating">
+                {% for value, label in form.fields.rating.choices %}
+                <option value="{{ value }}" {% if form.instance.rating == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="description">説明:</label>
+            <textarea id="description" name="description">{{ form.instance.description }}</textarea>
+        </div>
+        <div class="button-group">
+            <button type="submit">追加</button>
+            <a href="javascript:history.back()">キャンセル</a>
+        </div>
+    </form>
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainCategorySelect = document.getElementById('main_category');
+            const subCategorySelect = document.getElementById('sub_category');
+            const dateInput = document.getElementById('date');
+
+            // メインカテゴリが変更されたときのイベントリスナー
+            mainCategorySelect.addEventListener('change', function() {
+                const mainCategoryId = this.value;
+
+                // 既存のサブカテゴリの選択肢をクリア
+                subCategorySelect.innerHTML = '<option value="">-- サブカテゴリを選択 --</option>';
+
+                if (mainCategoryId) {
+                    // メインカテゴリに応じてサブカテゴリを取得
+                    fetch(`/api/subcategories/?main_category=${mainCategoryId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            data.subcategories.forEach(subcategory => {
+                                const option = document.createElement('option');
+                                option.value = subcategory.id;
+                                option.textContent = subcategory.name;
+                                subCategorySelect.appendChild(option);
+                            });
+                        });
+                }
+            });
+
+            // ページがロードされたときに初期値を設定する
+            if (mainCategorySelect.value) {
+                mainCategorySelect.dispatchEvent(new Event('change'));
+            }
+
+            // 日付がない場合は日付を今日の日付に設定
+            if (!dateInput.value) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+            }
+        });
+    </script>
+</body>
+</html>
+{% endblock %}
+

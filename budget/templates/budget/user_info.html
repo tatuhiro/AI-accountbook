@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load static %} 
+
+{% block title %}ユーザー情報登録{% endblock %}
+
+
+{% block content %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+{% endblock %}
+    
+<div class="container">
+        <h1>ユーザー情報登録</h1>
+        <form action="{% url 'submit_user_info' %}" method="post">
+            {% csrf_token %}
+
+            <!-- MBTIタイプ -->
+            <label for="mbti">MBTIタイプ (例: INFP, ENTJなど):</label>
+            <input type="text" id="mbti" name="mbti" placeholder="例: INFP, ENTJ" value="{{ form.mbti.value }}" required>
+
+            <!-- 職業 -->
+            <label for="occupation">職業:</label>
+            <input type="text" id="occupation" name="occupation" placeholder="例: エンジニア, 事務職" value="{{ form.occupation.value }}" required>
+
+            <!-- 年収 -->
+            <label for="income">年収 (円):</label>
+            <input type="text" id="income" name="income" placeholder="例: 5000000" value="{{ form.income.value }}" step="1" required>
+
+            <!-- 月ごとの主な支出項目 -->
+            <label for="expenses">月ごとの主な支出項目:</label>
+            <input type="text" id="expenses" name="expenses" placeholder="例: 家賃、食費、交通費" value="{{ form.expenses.value }}" required>
+
+            <!-- 支払い方法 -->
+            <label for="payment">普段の支払い方法:</label>
+            <select id="payment" name="payment" required>
+                <option value="現金" {% if form.payment.value|stringformat:"s" == "現金" %}selected{% endif %}>現金</option>
+                <option value="クレジットカード" {% if form.payment.value|stringformat:"s" == "クレジットカード" %}selected{% endif %}>クレジットカード</option>
+                <option value="電子マネー" {% if form.payment.value|stringformat:"s" == "電子マネー" %}selected{% endif %}>電子マネー</option>
+                <option value="その他" {% if form.payment.value|stringformat:"s" == "その他" %}selected{% endif %}>その他</option>
+            </select>
+
+            <!-- 貯金や投資に回している金額 -->
+            <label for="savings">月に貯金や投資に回している金額 (円):</label>
+            <input type="text" id="savings" name="savings" placeholder="例: 50000" value="{{ form.savings.value }}" step="1" required>
+
+            <!-- 目標貯金額と目的 -->
+            <label for="goal">目標貯金額と目的:</label>
+            <input type="text" id="goal" name="goal" placeholder="例: 家購入、旅行、老後" value="{{ form.goal.value }}" required>
+
+            <!-- 性格タイプ -->
+            <label for="personality">自分の性格はどちらに近いですか？</label>
+            <select id="personality" name="personality" required>
+                <option value="計画的" {% if form.personality.value|stringformat:"s" == "計画的" %}selected{% endif %}>計画的</option>
+                <option value="衝動的" {% if form.personality.value|stringformat:"s" == "衝動的" %}selected{% endif %}>衝動的</option>
+                <option value="堅実" {% if form.personality.value|stringformat:"s" == "堅実" %}selected{% endif %}>堅実</option>
+                <option value="冒険的" {% if form.personality.value|stringformat:"s" == "冒険的" %}selected{% endif %}>冒険的</option>
+            </select>
+
+            <!-- 節約意識 -->
+            <label for="awareness">節約についての意識:</label>
+            <select id="awareness" name="awareness" required>
+                <option value="全く意識していない" {% if form.awareness.value|stringformat:"s" == "全く意識していない" %}selected{% endif %}>全く意識していない</option>
+                <option value="たまに考える" {% if form.awareness.value|stringformat:"s" == "たまに考える" %}selected{% endif %}>たまに考える</option>
+                <option value="常に意識している" {% if form.awareness.value|stringformat:"s" == "常に意識している" %}selected{% endif %}>常に意識している</option>
+            </select>
+
+            <!-- 送信ボタン -->
+            <button type="submit">登録する</button>
+        </form>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,101 @@
+/* ナビゲーションバー全体のスタイル */
+.navbar-top {
+    display: flex; /* フレックスボックスで配置 */
+    align-items: center; /* 縦方向で中央揃え */
+    justify-content: space-between; /* 左右両端に配置 */
+    background-color: #007bff; /* 背景色を青に設定 */
+    padding: 20px; /* 上下左右の余白 */
+}
+
+/* 左側のセクション（ロゴとHome） */
+.left-section {
+    display: flex; /* フレックスボックスで配置 */
+    align-items: center; /* 縦方向で中央揃え */
+    gap: 20px; /* 要素間の間隔を設定 */
+}
+
+/* ロゴのスタイル */
+.navbar-logo {
+    height: 80px; /* ロゴの高さを指定 */
+    border-radius: 25%; /* 角を丸くする */
+}
+
+/* Homeリンクのスタイル */
+.navbar-title {
+    color: white; /* テキストの色を白に設定 */
+    text-decoration: none; /* 下線を削除 */
+    font-size: 2em; /* テキストサイズを調整 */
+    font-weight: bold; /* 太字 */
+}
+
+.navbar-title:hover {
+    color: #ffffff; /* ホバー時の色を変更 */
+}
+
+
+/* 右側のセクション（ログアウトボタン） */
+.right-section {
+    display: flex; /* フレックスボックスで配置 */
+    align-items: center; /* 縦方向で中央揃え */
+}
+
+/* ログアウトボタンのフォーム */
+.logout-form {
+    display: flex; /* フレックスボックスで配置 */
+    align-items: center; /* 縦方向で中央揃え */
+    margin-left: auto; /* 右端に配置 */
+    padding: 0; /* 不要な余白を削除 */
+    background-color: transparent; /* 背景を透明に設定 */
+}
+
+/* ログアウトボタンのスタイル */
+.logout-button {
+    background-color: #007bff; /* 背景色 */
+    color: white; /* 文字色 */
+    border: none; /* 枠線を削除 */
+    padding: 5px 15px; /* 内側の余白を適切に調整 */
+    border-radius: 4px; /* 角を丸くする */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* カーソルをポインタに変更 */
+    white-space: nowrap; /* テキストを1行に固定 */
+    text-align: center; /* テキストを中央揃え */
+    width: auto; /* 自動幅を設定 */
+}
+
+
+/* ログアウトボタンのホバー時のスタイル */
+.logout-button:hover {
+    background-color: #003366; /* ホバー時の背景色 */
+}
+
+.navbar {
+    display: flex;
+    justify-content: center; /* 中央寄せ */
+    align-items: center;
+    background-color: #007bff;
+    padding: 10px 20px;
+}
+
+/* ナビゲーションのリンクコンテナ */
+.navbar-links {
+    display: flex;
+    gap: var(--navbar-gap, 120px); /* デフォルトは 20px（自由に変更可能） */
+}
+
+/* ナビゲーションの各リンク */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* ホバー時のスタイル */
+.navbar a:hover {
+    background-color: #003366;
+    color: #cce7ff;
+}
+

@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+
+{% block title %}収入一覧{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<link href="{% static 'css/index.css' %}" rel="stylesheet">
+
+<p style="font-size: 1.5em; font-weight: bold;">ようこそ、{{ user.username }}さん</p>
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    <div>
+        <a href="{% url 'index' previous_month.0 previous_month.1 %}" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;" aria-label="前の月へ">前の月</a>
+        <span style="margin: 0 10px;">|</span>
+        <a href="{% url 'index' next_month.0 next_month.1 %}" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;" aria-label="次の月へ">次の月</a>
+    </div>
+</div>
+
+<p style="font-size: 1.5em; font-weight: bold;">{{ current_month }}の合計</p>
+<div class="totals">
+    <p style="font-size: 1.5em; font-weight: bold;"><strong>合計支出:</strong> ￥{{ total_expense }}</p>
+    <p style="font-size: 1.5em; font-weight: bold;"><strong>合計収入:</strong> ￥{{ total_income }}</p>
+</div>
+
+<a href="{% url 'add_expense' %}">
+    <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">新しい支出を追加</button>
+</a>
+
+<a href="{% url 'add_income' %}">
+    <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">新しい収入を追加</button>
+</a>
+
+<div style="text-align: center;">
+    <img src="{% url 'combined_graph' year=year month=month %}" alt="Income and Expense Graph">
+</div>
+
+<p style="font-size: 1.5em; font-weight: bold;">カテゴリーごとの割合</p>
+<table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 20px;">
+    <thead>
+        <tr style="border-bottom: 2px solid #ddd;">
+            <th style="padding: 8px;">カテゴリー</th>
+            <th style="padding: 8px;">合計金額</th>
+            <th style="padding: 8px;">割合 (%)</th>
+            <th style="padding: 8px;">割合グラフ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories_data %}
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px;">{{ category.name }}</td>
+            <td style="padding: 8px;">￥{{ category.total }}</td>
+            <td style="padding: 8px;">{{ category.percentage|floatformat:1 }}</td>
+            <td style="padding: 8px; width: 300px;">
+                <div class="graph-container">
+                    <div class="graph-bar" style="width: {{ category.percentage }}%; background-color: {{ category.color }};"></div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr style="font-weight: bold; border-top: 2px solid #ddd;">
+            <td style="padding: 8px;">合計</td>
+            <td style="padding: 8px;">￥{{ total_expense }}</td>
+            <td style="padding: 8px;">100%</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
+

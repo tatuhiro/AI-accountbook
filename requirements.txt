@@ -1,0 +1,14 @@
+# Django and related packages
+django>=5.1
+psycopg2-binary  # For PostgreSQL
+whitenoise       # Static file serving optimization
+gunicorn         # WSGI server for production
+
+# Other required packages
+pandas
+matplotlib
+japanize_matplotlib
+langchain
+langchain_openai
+openai
+dj-database-url

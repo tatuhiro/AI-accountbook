@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}収入カテゴリ追加{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/source_form.css' %}" rel="stylesheet">
+
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <form method="post" id="SourceForm">
+        {% csrf_token %}
+        {% if mode == "delete" %}
+            <p>{{ form.instance.name }} を削除してもよろしいですか？</p>
+        {% else %}
+            <div>
+                <label for="name">収入元:</label>
+                <input type="text" id="name" name="name" value="{{ form.instance.name }}">
+            </div>
+        {% endif %}
+        <div class="button-group">
+            <button type="submit">{{ submit_button_label }}</button>
+            <a href="{% url 'source_list' %}">キャンセル</a>
+        </div>
+    </form>
+    
+
+    {% if mode != "delete" %}
+    <script>
+        function submitForm() {
+            const form = document.getElementById('SourceForm');
+            const formData = new FormData(form);
+
+            fetch('{% if mode == "edit" %}{% url "edit_source" form.instance.pk %}{% else %}{% url "add_source" %}{% endif %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 送信後にリストページにリダイレクト
+                    window.location.href = '{% url "source_list" %}';
+                } else {
+                    alert('データの送信に失敗しました: ' + JSON.stringify(data.errors));
+                }
+            });
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

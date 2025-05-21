@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}ユーザー情報確認{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>ユーザー情報確認</h1>
+        <p><strong>ユーザー名:</strong> {{ user_info.user.username }}</p>
+        <p><strong>MBTIタイプ:</strong> {{ user_info.mbti }}</p>
+        <p><strong>職業:</strong> {{ user_info.occupation }}</p>
+        <p><strong>年収:</strong> {{ user_info.income|floatformat:0 }}</p>
+        <p><strong>主な支出項目:</strong> {{ user_info.expenses }}</p>
+        <p><strong>支払い方法:</strong> {{ user_info.payment }}</p>
+        <p><strong>貯金や投資に回している金額:</strong> {{ user_info.savings|floatformat:0 }}</p>
+        <p><strong>目標貯金額と目的:</strong> {{ user_info.goal }}</p>
+        <p><strong>性格タイプ:</strong> {{ user_info.personality }}</p>
+        <p><strong>節約意識:</strong> {{ user_info.awareness }}</p>
+    </div>
+
+    <!-- 編集ボタン -->
+    <a href="{% url 'user_info' %}" class="btn">編集する</a>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* 全体のスタイル */
+    body {
+        background-color: #f7f9fc;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    /* コンテナのスタイル */
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 見出しのスタイル */
+    h1 {
+        font-size: 24px;
+        color: #0056b3;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* 各項目のラベルと値のスタイル */
+    p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 12px;
+        line-height: 1.6;
+    }
+
+    p strong {
+        color: #333;
+        font-weight: bold;
+    }
+
+    /* ボタンのスタイル */
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 12px 0;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* モバイル用のレスポンシブ対応 */
+    @media (max-width: 768px) {
+        .container {
+            width: 90%;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock %}

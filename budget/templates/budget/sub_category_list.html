@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}サブカテゴリ{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sub Categories</title>
+    <link href="{% static 'css/sub_category_list.css' %}" rel="stylesheet">
+
+</head>
+<body>
+    <h1>サブカテゴリ一覧</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>メインカテゴリ</th>
+                <th>サブカテゴリ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.main_category }}</td>
+                <td>{{ category.name }}</td>
+                <td class="action-links">
+                    <form action="{% url 'edit_sub_category' category.pk %}"method="get">
+                        <button type="submit" class="edit-button">✏️ 編集</button>
+                    </form>
+                    <form action="{% url 'delete_sub_category' category.pk %}"method="post" onsubmit="return confirm('{{ category.name }} を削除してもよろしいですか？');">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">🗑️ 削除</button>
+                    </form>
+                </td>
+                    
+                
+                
+            {% empty %}
+                <td>データがありません。</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    
+    <!-- サブカテゴリ追加へのリンク -->
+    <div class="button-container">
+        <a href="{% url 'add_sub_category' %}" class="undner">サブカテゴリを追加</a>
+        <a href="{% url 'main_category_list' %}" class="undner">メインカテゴリ一覧</a>
+        <a href="{% url 'expense_list' %}" class="undner">支出一覧</a>
+    </div>
+</body>
+</html>
+{% endblock %}

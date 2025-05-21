@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %}チャット{% endblock %}
+
+{% block content %}
+
+<div id="chatbot-container" class="chatbot-fixed">
+    <div id="sidebar">
+        <button id="new-thread" class="btn btn-primary btn-block">新しい会話を作成</button>
+        <ul id="thread-list">
+            {% for thread in threads %}
+            <li>
+                <a href="{% url 'chatbot_thread' thread.id %}">{{ thread.title }}</a>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button class="dropdown-item rename-thread-btn" data-thread-id="{{ thread.id }}">タイトル変更</button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item delete-thread-btn" data-thread-id="{{ thread.id }}">削除</button>
+                        </li>
+                    </ul>
+                </div>                
+            </li>
+            
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="main-chat">
+        <div id="chatbot-header">
+            <p class="assistant-title">家計簿アシスタント</p>
+            <div class="chatbot-controls">
+                <button id="chatbot-reset" class="btn btn-sm btn-warning">リセット</button>
+            </div>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages">
+            {% if selected_thread %}
+                {% for message in selected_thread.chathistories.all %}
+                    <div class="user-message">{{ message.user_message }}</div>
+                    <div class="assistant-message">{{ message.ai_message }}</div>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
+        <div id="chatbot-input">
+            <input type="text" id="user-input" placeholder="メッセージを入力">
+            <button id="send-message" class="btn btn-success">送信</button>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/chatbot.js' %}"></script>
+{% endblock %}

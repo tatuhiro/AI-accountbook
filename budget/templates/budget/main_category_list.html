@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}メインカテゴリ{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Categories</title>
+    <link href="{% static 'css/main_category_list.css' %}" rel="stylesheet">
+</head>
+<body>
+    <h1>メインカテゴリ一覧</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>メインカテゴリ</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td class="action-links">
+                    <form action="{% url 'edit_main_category' category.pk %}" method="get">
+                        <button type="submit" class="edit-button">✏️ 編集</button>
+                    </form>
+                    <form action="{% url 'delete_main_category' category.pk %}" method="post" onsubmit="return confirm('{{ category.name }} を削除してもよろしいですか？');">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">🗑️ 削除</button>
+                    </form>
+                </td>
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">データがありません。</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- ボタンを横並びで中央に配置 -->
+    <div class="button-container">
+        <a href="{% url 'add_main_category' %}" class="undner">メインカテゴリを追加</a>
+        <a href="{% url 'sub_category_list' %}" class="undner">サブカテゴリ一覧</a>
+        <a href="{% url 'expense_list' %}" class="undner">支出一覧</a>
+    </div>
+
+</body>
+</html>
+{% endblock %}

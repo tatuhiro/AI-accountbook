@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}支出を追加{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/main_category_form.css' %}" rel="stylesheet">
+
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <form method="post" id="MainCategoryForm"
+        {% if mode == "delete" %}
+        action="{% url 'delete_main_category' main_category.pk %}"
+        {% elif main_category and main_category.pk %}
+        action="{% url 'edit_main_category' main_category.pk %}"
+        {% else %}
+        action="{% url 'add_main_category' %}"
+        {% endif %}">
+
+
+    {% csrf_token %}
+        {% if mode == "delete" %}
+            <p>{{ main_category.name }} を削除してもよろしいですか？</p>
+        {% else %}
+            <div>
+                <label for="name">メインカテゴリ名:</label>
+                <input type="text" id="name" name="name" value="{{ form.instance.name }}">
+            </div>
+        {% endif %}
+
+    
+    <div class="button-group">
+        <button  type="submit">{{ submit_button_label }}</button>
+        <a  href="javascript:history.back()">キャンセル</a>
+    </div>
+    </form>
+    
+
+    {% if mode != "delete" %}
+    <script>
+        function submitForm() {
+            const form = document.getElementById('MainCategoryForm');
+            const formData = new FormData(form);
+
+            fetch('{% if mode == "edit" %}{% url "edit_main_category" form.instance.pk %}{% else %}{% url "add_main_category" %}{% endif %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 送信後にリストページにリダイレクト
+                    window.location.href = '{% url "main_category_list" %}';
+                } else {
+                    alert('データの送信に失敗しました: ' + JSON.stringify(data.errors));
+                }
+            });
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock %}
+
+

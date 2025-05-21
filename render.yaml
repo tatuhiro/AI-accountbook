@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: account-book  # サービス名 (任意)
+    env: python  # 環境
+    buildCommand: ./build.sh  # ビルドコマンド
+    startCommand: gunicorn config.wsgi:application  # 起動コマンド
+    plan: free  # プラン (free または paid)
+
+    # リポジトリの設定
+    repo:
+      provider: github  # GitHub を使用
+      name: s1f10220245/account_book  # リポジトリ名
+      branch: main  # ブランチ名
+
+    # 環境変数の設定 (必要に応じて)
+    envs:
+      - key: SECRET_KEY
+        fromService: secret-key  # Render のシークレットサービスから取得
+      - key: DATABASE_URL
+        fromService: database  # Render のデータベースサービスから取得
+      - key: OPENAI_API_KEY  # OpenAI API キー
+        generateValue: true  # Render でランダムな値を生成
+
+    # データベースの設定
+    database:
+      type: postgresql  # PostgreSQL を使用
+      plan: free  # プラン (free または paid)
+      name: account-book-db  # データベース名 (任意)
+
+    # シークレットサービスの設定
+    secretKey:
+      name: secret-key  # シークレット名 (任意)
+      generateValue: true  # Render でランダムな値を生成

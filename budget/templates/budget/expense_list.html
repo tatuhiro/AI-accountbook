@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}支出一覧{% endblock %}
+
+{% block content %}
+{% load static %} 
+
+<!DOCTYPE html>
+<h1 style="font-size: 1.5em; font-weight: bold;">支出一覧</h1>
+<!--新しい支出追加ボタン-->
+<a href="{% url 'add_expense' %}">
+    <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+        新しい支出を追加
+    </button>
+</a>
+
+<link rel="stylesheet" href="{% static 'css/expense_list.css' %}">
+
+<!-- 前月と次月へのリンクを追加 -->
+<div style="text-align: center; margin: 10px 0;">
+    <button onclick="location.href='?month={{ previous_month }}'" aria-label="前の月へ" 
+            style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        前の月
+    </button>
+    <span style="margin: 0 15px; font-weight: bold;">{{ current_month }}</span>
+    <button onclick="location.href='?month={{ next_month }}'" aria-label="次の月へ" 
+            style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        次の月 
+    </button>
+</div>
+
+<div style="text-align: center;">
+    <img src="{% url 'expense_graph' year=current_year month=current_month_number %}" alt="Expense Graph">
+</div>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>日付</th>
+            <th>金額</th>
+            <th>メイン</th>
+            <th>サブ</th>
+            <th>支払方法</th>
+            <th>満足度</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.date }}</td>
+            <td>{{ expense.amount|floatformat:0 }} 円</td>
+            <td>{{ expense.main_category }}</td>
+            <td>{{ expense.sub_category }}</td>
+            <td>{{ expense.get_payment_method_display }}</td>
+            <td>{{ expense.get_rating_display }}</td>
+            <td class="action-buttons">
+                <form action="{% url 'edit_expense' expense.pk %}" method="get">
+                    <button type="submit" class="edit-button">✏️ 編集</button>
+                </form>
+                <form action="{% url 'delete_expense' expense.pk %}" method="post" onsubmit="return confirm('本当に削除してもよろしいですか？');">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">🗑️ 削除</button>
+                </form>
+            </td>
+            
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">データがありません。</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<div class="button-container">
+    <a href="{% url 'main_category_list' %}">メインカテゴリ一覧</a>
+    <a href="{% url 'sub_category_list' %}">サブカテゴリ一覧</a>
+</div>
+
+
+{% endblock %}

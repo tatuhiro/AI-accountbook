@@ -1,0 +1,106 @@
+/* expense_list.css */
+
+/* テーブル全体のスタイル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #fff; /* 白背景で見やすく */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* テーブルに影を追加 */
+    font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    border-radius: 10px; /* テーブルに丸みを追加 */
+    overflow: hidden; /* 丸みを正しく表示するために追加 */
+}
+
+/* テーブルの境界線 */
+table, th, td {
+    border: 1px solid #ddd; /* 柔らかいグレーの境界線 */
+    text-align: center; /* 中央揃え */
+    vertical-align: middle; /* 縦方向も中央揃え */
+    padding: 10px; /* 余白を追加 */
+    font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+
+/* セルの内側余白と文字揃え */
+th, td {
+    padding: 12px 15px; 
+    text-align: center; 
+}
+
+/* 偶数行の背景色 */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* テーブルヘッダーのスタイル */
+th {
+    background-color: #007bff;  /* 青色の背景 */
+    color: white;               /* テキストは白 */
+    font-weight: bold;
+    font-size: 16px; /* ヘッダーフォントを少し大きく */
+    text-align: center;
+    font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+
+/* 新しいカテゴリーの追加ボタンのデザイン変更 */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+  
+.button-container a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+  
+.button-container a:hover {
+    background-color: #0056b3;
+}
+/* 編集・削除ボタンのスタイル */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* 編集ボタン */
+.edit-button {
+    background-color: #419af9;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #3e90e7;
+}
+
+/* 削除ボタン */
+.delete-button {
+    background-color: #ee5867;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}

@@ -1,0 +1,212 @@
+#chatbot-container {
+    height: 700px; /* 高さを調整 */
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    display: flex; /* フレックスコンテナとして設定 */
+    flex-direction: row; /* 子要素を左右に並べる */
+}
+
+#chatbot-header {
+    padding: 0.8px;
+    border-bottom: 1px solid #ccc;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chatbot-input {
+    display: flex;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+#send-message {
+    padding: 10px 15px;
+    font-size: 14px;
+}
+/* チャット全体 */
+#chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+    display: flex;
+    font-weight: 575;
+    flex-direction: column;
+    gap: 10px; /* 各メッセージ間に隙間を作る */
+    font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    align-items: flex-start; /* 左寄せ */
+
+}
+
+/* 吹き出しスタイル（ユーザー） */
+.user-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 15px 0 15px 15px;
+    max-width: 80%;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+/* 吹き出しスタイル（ボット） */
+.assistant-message {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 0 15px 15px 15px;
+    max-width: 80%;
+    word-wrap: break-word;
+    text-align: left;
+    margin-left: 0; /* 左端に配置 */
+}
+
+/* チャット入力 */
+#chatbot-input {
+    display: flex;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ccc;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+#send-message {
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
+/* .chatbot-controls内のボタンをゴシック体に設定 */
+.chatbot-controls button {
+    font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    font-size: 14px; /* 必要に応じてフォントサイズも指定 */
+    padding: 5px 10px; /* ボタンの内側の余白 */
+    border-radius: 5px; /* 角丸にする場合 */
+    font-weight: bold;
+}
+
+.assistant-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px; /* 上方向の余白を追加して下げる */
+    text-align: center; /* 必要に応じて中央揃え */
+}
+
+#sidebar {
+    width: 25%; /* サイドバーの幅を固定 */
+    background-color: #f4f4f4;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    overflow-y: auto;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar ul li {
+    margin-bottom: 10px;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+#main-chat {
+    flex: 1; /* 残りのスペースを使用 */
+    display: flex;
+    flex-direction: column; /* 上下方向に要素を配置 */
+    height: 100%; /* 高さをサイドバーに揃える */
+}
+
+#thread-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* 削除ボタンのスタイルを削除オプションに対応 */
+.delete-thread-btn {
+    color: #ff4d4d; /* 文字色を赤に */
+    background-color: transparent; /* 背景を透明に */
+    border: none; /* 枠線を削除 */
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: left; /* テキストを左寄せ */
+}
+
+.delete-thread-btn:hover {
+    color: #ff0000; /* ホバー時に赤を濃く */
+    text-decoration: underline; /* 下線を追加 */
+}
+
+/* ドロップダウンボタン（オプション）のスタイル */
+.dropdown-toggle {
+    background-color: transparent; /* 背景を透明に */
+    border: none; /* 枠線を削除 */
+    font-size: 18px; /* フォントサイズを調整 */
+    color: #333; /* ボタンの文字色 */
+    padding: 0; /* 余白を削除 */
+    cursor: pointer; /* カーソルをポインターに */
+}
+
+.dropdown-toggle::after {
+    font-size: 18px; /* フォントサイズを調整 */
+    color: #333; /* 矢印の色 */
+}
+
+
+/* ドロップダウンメニューのオプションスタイル */
+.dropdown-menu .dropdown-item {
+    color: #333; /* 通常の文字色 */
+    padding: 5px 15px; /* 余白を調整 */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* カーソルをポインターに */
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f1f1f1; /* ホバー時の背景色 */
+    color: #007bff; /* ホバー時の文字色 */
+}
+
+/* 削除オプション（赤文字） */
+.dropdown-menu .delete-thread-btn {
+    color: #ff4d4d; /* 文字色を赤に */
+    font-weight: bold; /* 太字 */
+}
+
+.dropdown-menu .delete-thread-btn:hover {
+    color: #ff0000; /* ホバー時に濃い赤 */
+    text-decoration: underline; /* 下線を追加 */
+}

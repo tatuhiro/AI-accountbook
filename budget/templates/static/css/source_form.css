@@ -1,0 +1,73 @@
+/* CSS */
+body {
+    background-color: #ffffff; /* 背景を白に設定 */
+    font-weight: bold; /* 文字を太文字に設定 */
+    font-family: Arial, sans-serif; /* 読みやすいフォントを設定 */
+    flex-direction: column; /* 縦方向にレイアウト */
+    justify-content: center; /* 上に配置 */
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center; /* 中央揃え */
+    margin-top: 20px;
+    margin-bottom: 20px; /* タイトルの下に適切なスペース */
+}
+
+form {
+    display: grid;
+    gap: 50px; /* 各フォーム項目の間隔 */
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff; /* フォームの背景を白に */
+    padding: 20px;
+    border-radius: 8px;
+    margin: 0 auto;
+    justify-content: center; /* 垂直方向で中央揃え */
+    align-items: center; /* 水平方向で中央揃え */
+    text-align: center; /* 中央揃え */
+
+}
+
+form p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+form input, form select, form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.button-group {
+    grid-column: span 2; /* ボタンを2列分にまたがる */
+    display: flex;
+    justify-content: center; /* 中央揃え */
+    gap: 10px; /* ボタン間のスペース */
+    margin-top: 20px;
+}
+
+.button-group button, .button-group a {
+    background-color: #007BFF; /* 青色の背景 */
+    color: white; /* テキストを白に */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none; /* 下線を消す */
+}
+
+.button-group button:hover, .button-group a:hover {
+    background-color: #0056b3; /* ホバー時の色 */
+}
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %} 
+{% block title %}収入一覧{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 1.5em; font-weight: bold;">収入一覧</h1>
+<!--新しい収入追加ボタン-->
+<a href="{% url 'add_income' %}">
+    <button style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+        新しい収入を追加
+    </button>
+</a>
+
+<link rel="stylesheet" href="{% static 'css/expense_list.css' %}">
+
+<!-- 前月と次月へのリンクを追加 -->
+<div style="text-align: center; margin: 10px 0;">
+    <button onclick="location.href='?month={{ previous_month }}'" aria-label="前の月へ" 
+            style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        前の月
+    </button>
+    <span style="margin: 0 15px; font-weight: bold;">{{ current_month }}</span>
+    <button onclick="location.href='?month={{ next_month }}'" aria-label="次の月へ" 
+            style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        次の月 
+    </button>
+</div>
+
+<div style="text-align: center;">
+    <img src="{% url 'income_graph' year=current_year month=current_month_number %}" alt="Expense Graph">
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>日付</th>
+            <th>金額</th>
+            <th>収入源</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for income in incomes %}
+        <tr>
+            <td>{{ income.date }}</td>
+            <td>{{ income.amount|floatformat:0 }} 円</td>
+            <td>{{ income.source }}</td>
+            <td>
+                <form action="{% url 'edit_income' income.pk %}" method="get" style="display: inline;">
+                    <button type="submit" class="edit-button">✏️ 編集</button>
+                </form>
+                <form action="{% url 'delete_income' income.pk %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit"  class="delete-button" onclick="return confirm('本当に削除してもよろしいですか？');">🗑️ 削除</button>
+                </form>                
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">データがありません。</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<div class="button-container">
+    <a href="{% url 'source_list' %}">収入カテゴリ一覧</a>
+</div>
+
+{% endblock %}

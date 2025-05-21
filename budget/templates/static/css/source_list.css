@@ -1,0 +1,119 @@
+/* 全体のスタイル */
+body {
+    font-family: Arial, sans-serif; /* 読みやすいフォント */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* ビューポート全体を占有 */
+}
+
+/* 見出しスタイル */
+h1 {
+    text-align: center; /* 中央揃え */
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* テーブル全体のスタイル */
+table {
+    width: 80%;
+    margin-bottom: 20px; /* テーブル下部に余白 */
+    border-collapse: collapse; /* ボーダーを重ねない */
+    background-color: #ffffff; /* 白い背景 */
+    margin: 0 auto; /* 左右のマージンを自動で設定 */
+    text-align: center; /* 中央揃え */
+    justify-content: center; /* 縦方向で中央揃え */
+}
+
+/* ヘッダーのスタイル */
+table thead th {
+    padding: 12px 15px; /* セル内の余白 */
+    text-align: center; /* ヘッダーを中央揃え */
+    border-bottom: 1px solid #ddd; /* セルのボーダー */
+}
+
+table td {
+    padding: 12px 15px; /* セル内の余白 */
+    border-bottom: 1px solid #ddd; /* セルのボーダー */
+}
+
+
+/* 行ホバー時のスタイル */
+table tbody tr:hover {
+    background-color: #f1f1f1; /* ホバー時の背景色 */
+}
+
+/* ボタンとリンクスタイル */
+/* ボタンコンテナのスタイル */
+.button-container {
+    display: flex; /* 横並びに配置 */
+    justify-content: center; /* 中央揃え */
+    gap: 10px; /* ボタン間のスペース */
+    margin-top: 20px; /* 上部に余白 */
+}
+
+/* ボタンのスタイル */
+.undner {
+    display: inline-block; /* インラインブロック表示 */
+    background-color: #007BFF; /* 青色ボタン */
+    color: white; /* テキストを白に */
+    padding: 10px 20px; /* ボタンの内側余白 */
+    border-radius: 4px; /* 角を丸める */
+    text-decoration: none; /* 下線を削除 */
+    font-size: 16px; /* フォントサイズ */
+    font-weight: bold; /* 太文字 */
+    text-align: center; /* テキスト中央揃え */
+    cursor: pointer; /* ポインタカーソル */
+}
+
+.undner:hover {
+    background-color: #0056b3; /* ホバー時の濃い青色 */
+    color: #ffffff;
+}
+
+/* 編集・削除ボタンのコンテナ */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ボタン共通のスタイル */
+.action-buttons button {
+    padding: 10px 16px; /* 大きさを統一 */
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 編集ボタン */
+.edit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+/* 削除ボタン */
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+
+
+

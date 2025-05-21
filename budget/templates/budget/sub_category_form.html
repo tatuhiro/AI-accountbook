@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}サブカテゴリを追加{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/sub_category_form.css' %}" rel="stylesheet">
+
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <form method="post" id="SubCategoryForm">
+        {% csrf_token %}
+        {% if mode == "delete" %}
+            <p>{{ form.instance.name }} を削除してもよろしいですか？</p>
+        {% else %}
+            <div>
+                <label for="main_category">メインカテゴリ:</label>
+                <select id="main_category" name="main_category">
+                    {% for category in form.fields.main_category.choices %}
+                    <option value="{{ category.0 }}" {% if form.instance.main_category and form.instance.main_category.id == category.0 %}selected{% endif %}>
+                        {{ category.1 }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="name">サブカテゴリ名:</label>
+                <input type="text" id="name" name="name" value="{{ form.instance.name }}">
+            </div>
+        {% endif %}
+        <div class="button-group">
+            <button type="submit">{{ submit_button_label }}</button>
+            <a href="javascript:history.back()">キャンセル</a>
+        </div>
+    </form>
+    
+    
+
+    {% if mode != "delete" %}
+    <script>
+        function submitForm() {
+            const form = document.getElementById('SubCategoryForm');
+            const formData = new FormData(form);
+
+            fetch('{% if mode == "edit" %}{% url "edit_sub_category" form.instance.pk %}{% else %}{% url "add_sub_category" %}{% endif %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 送信後にリストページにリダイレクト
+                    window.location.href = '{% url "sub_category_list" %}';
+                } else {
+                    alert('データの送信に失敗しました: ' + JSON.stringify(data.errors));
+                }
+            });
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

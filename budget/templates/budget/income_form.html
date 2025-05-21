@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}支出を追加{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/income_form.css' %}" rel="stylesheet">
+
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <form method="post" id="incomeForm">
+        {% csrf_token %}
+        {% if mode == "delete" %}
+            <p>{{ form.instance.date }} : {{ form.instance.amount|floatformat:0 }}円 - {{ form.instance.source }} を削除してもよろしいですか？</p>
+        {% else %}
+            <div>
+                <label for="date">日付:</label>
+                <input type="date" id="date" name="date" value="{{ form.instance.date }}">
+            </div>
+            <div>
+                <label for="amount">金額:</label>
+                <input type="number" id="amount" name="amount" value="{{ form.instance.amount }}">
+            </div>
+            <div>
+                <label for="source">収入元:</label>
+                <select id="source" name="source">
+                    {% for value, label in form.fields.source.choices %}
+                    <option value="{{ value }}" {% if form.instance.source == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+        <div class="button-group">
+            <button type="submit">{{ submit_button_label }}</button>
+            <a href="javascript:history.back()">キャンセル</a>
+        </div>
+    </form>
+    
+    {% if mode != "delete" %}
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('incomeForm');
+            const formData = new FormData(form);
+
+            fetch('{% if mode == "edit" %}{% url "edit_income" form.instance.pk %}{% else %}{% url "add_income" %}{% endif %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 送信後にリストページにリダイレクト
+                    window.location.href = '{% url "income_list" %}';
+                } else {
+                    alert('データの送信に失敗しました: ' + JSON.stringify(data.errors));
+                }
+            });
+        }
+    </script>
+    {% endif %}
+</body>
+</html>
+
+{% endblock %}

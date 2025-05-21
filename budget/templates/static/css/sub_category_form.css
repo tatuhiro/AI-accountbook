@@ -1,0 +1,67 @@
+/* 全体のスタイル */
+body {
+    background-color: #ffffff; /* 背景を白に設定 */
+    font-weight: bold; /* 文字を太文字に設定 */
+    font-family: Arial, sans-serif; /* 読みやすいフォントを設定 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* 縦方向にレイアウト */
+    
+    min-height: 100vh;
+}
+
+/* 見出しスタイル */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* フォーム全体のスタイル */
+form {
+    text-align: center; /* 中央揃え */
+    display: grid;
+    gap: 15px; /* 各要素間のスペース */
+    margin: 0 auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+}
+
+/* 入力フィールドのスタイル */
+form input, form select {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: normal;
+}
+
+/* ボタンコンテナのスタイル */
+.button-group {
+    display: flex; /* 横並びに配置 */
+    justify-content: center; /* 中央揃え */
+    gap: 10px; /* ボタン間の間隔 */
+    margin-top: 20px;
+}
+
+/* ボタンのスタイル */
+.button-group button, .button-group a {
+    background-color: #007BFF; /* 青色ボタン */
+    color: white; /* ボタンの文字色 */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none; /* リンクの下線を削除 */
+}
+
+.button-group button:hover, .button-group a:hover {
+    background-color: #0056b3; /* ホバー時の濃い青色 */
+}
